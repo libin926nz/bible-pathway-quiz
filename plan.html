@@ -15,6 +15,7 @@
 <meta property="og:title" content="免费21天圣经通读计划 · Free 21-Day Bible Reading Plan" />
 <meta property="og:description" content="下载打卡清单，三周温柔通读。Get the free PDF checklist." />
 <meta property="og:locale" content="zh_CN" />
+<meta property="og:locale:alternate" content="zh_TW" />
 <meta property="og:locale:alternate" content="en_US" />
 
 <meta name="twitter:card" content="summary" />
@@ -30,17 +31,23 @@
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "PingFang SC", "Hiragino Sans GB", "Noto Sans TC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
     line-height: 1.55; }
   body { min-height: 100dvh; }
   .wrap { max-width: 560px; margin: 0 auto; padding: 16px 14px calc(28px + var(--safe-bottom)); }
   .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 10px; }
   .back { color: var(--accent); text-decoration: none; font-weight: 650; font-size: .9rem; }
-  .lang-toggle {
-    appearance: none; border: 1px solid var(--line); background: var(--card);
-    border-radius: 999px; padding: 8px 14px; font-size: .85rem; font-weight: 650;
-    color: var(--accent); cursor: pointer; min-height: 40px; box-shadow: var(--shadow);
+  .lang-switch {
+    display: inline-flex; border: 1px solid var(--line); background: var(--card);
+    border-radius: 999px; padding: 3px; box-shadow: var(--shadow); gap: 2px;
   }
+  .lang-opt {
+    appearance: none; border: 0; background: transparent; border-radius: 999px;
+    padding: 7px 11px; font-size: .82rem; font-weight: 650; color: var(--muted);
+    cursor: pointer; min-height: 34px; min-width: 36px;
+  }
+  .lang-opt.active { background: var(--accent); color: #fff; }
+  .lang-opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
   .hero { background: linear-gradient(145deg, #2c4a6e, #3f6a8f 55%, #8a6b3a); color: #fff; border-radius: 18px; padding: 22px 18px; box-shadow: var(--shadow); }
   .hero .tag { display: inline-block; font-size: 12px; background: rgba(255,255,255,.18); padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
   .hero h1 { margin: 0 0 8px; font-size: 1.35rem; font-weight: 700; }
@@ -65,7 +72,7 @@
 <div class="wrap">
   <div class="topbar">
     <a class="back" href="./" id="link-back">← Quiz</a>
-    <button type="button" class="lang-toggle" id="btn-lang">EN</button>
+    <div id="lang-switch"></div>
   </div>
 
   <section class="hero">
@@ -96,11 +103,12 @@
   <footer class="site-footer" id="footer"></footer>
 </div>
 
+<script src="assets/bpq-lang.js"></script>
+<script src="assets/i18n-zh-hant.js"></script>
 <script>
 const I18N = {
   zh: {
     htmlLang: "zh-CN",
-    langBtn: "EN",
     back: "← 返回测评",
     docTitle: "免费21天圣经通读计划 · Free 21-Day Bible Reading Plan",
     metaDesc: "免费下载21天圣经通读打卡清单。温柔节奏，适合海外华人与英语读者。",
@@ -123,9 +131,9 @@ const I18N = {
     pathBtn: "去做亲近方式测评",
     footer: "本计划与测评受 Sacred Pathways 启发，内容为原创陪伴工具，并非临床或属灵权威诊断。"
   },
+  "zh-Hant": BPQ_ZH_HANT.plan,
   en: {
     htmlLang: "en",
-    langBtn: "中文",
     back: "← Back to quiz",
     docTitle: "Free 21-Day Bible Reading Plan",
     metaDesc: "Download a free 21-day Bible reading checklist PDF. Gentle pace for Chinese and English readers.",
@@ -150,16 +158,8 @@ const I18N = {
   }
 };
 
-function detectLang() {
-  try {
-    const saved = localStorage.getItem("bpq_lang");
-    if (saved === "zh" || saved === "en") return saved;
-  } catch (e) {}
-  const nav = (navigator.language || "en").toLowerCase();
-  return nav.startsWith("zh") ? "zh" : "en";
-}
-
-let lang = detectLang();
+let lang = BPQ.detectLang();
+if (BPQ.parseLangParam()) BPQ.saveLang(lang);
 
 function apply() {
   const i = I18N[lang];
@@ -167,7 +167,6 @@ function apply() {
   document.title = i.docTitle;
   const desc = document.querySelector('meta[name="description"]');
   if (desc) desc.setAttribute("content", i.metaDesc);
-  document.getElementById("btn-lang").textContent = i.langBtn;
   document.getElementById("link-back").textContent = i.back;
   document.getElementById("tag").textContent = i.tag;
   document.getElementById("title").textContent = i.title;
@@ -186,11 +185,7 @@ function apply() {
   document.getElementById("footer").textContent = i.footer;
 }
 
-document.getElementById("btn-lang").addEventListener("click", () => {
-  lang = lang === "zh" ? "en" : "zh";
-  try { localStorage.setItem("bpq_lang", lang); } catch (e) {}
-  apply();
-});
+BPQ.initLangSwitcher("lang-switch", function () { return lang; }, function (next) { lang = next; }, apply);
 
 apply();
 </script>
