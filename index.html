@@ -19,6 +19,7 @@
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="zh_CN" />
+<meta property="og:locale:alternate" content="zh_TW" />
 <meta property="og:locale:alternate" content="en_US" />
 <meta property="og:site_name" content="Bible Pathway Quiz" />
 
@@ -42,16 +43,22 @@
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "PingFang SC", "Hiragino Sans GB", "Noto Sans TC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
     line-height: 1.5; }
   body { min-height: 100dvh; }
   .wrap { max-width: 560px; margin: 0 auto; padding: 16px 14px calc(28px + var(--safe-bottom)); }
   .topbar { display: flex; justify-content: flex-end; margin-bottom: 10px; }
-  .lang-toggle {
-    appearance: none; border: 1px solid var(--line); background: var(--card);
-    border-radius: 999px; padding: 8px 14px; font-size: .85rem; font-weight: 650;
-    color: var(--accent); cursor: pointer; min-height: 40px; box-shadow: var(--shadow);
+  .lang-switch {
+    display: inline-flex; border: 1px solid var(--line); background: var(--card);
+    border-radius: 999px; padding: 3px; box-shadow: var(--shadow); gap: 2px;
   }
+  .lang-opt {
+    appearance: none; border: 0; background: transparent; border-radius: 999px;
+    padding: 7px 11px; font-size: .82rem; font-weight: 650; color: var(--muted);
+    cursor: pointer; min-height: 34px; min-width: 36px;
+  }
+  .lang-opt.active { background: var(--accent); color: #fff; }
+  .lang-opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
   .hero { background: linear-gradient(145deg, #2c4a6e, #3f6a8f 55%, #8a6b3a); color: #fff; border-radius: 18px; padding: 22px 18px; box-shadow: var(--shadow); }
   .hero .tag { display: inline-block; font-size: 12px; background: rgba(255,255,255,.18); padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
   .hero h1 { margin: 0 0 8px; font-size: 1.4rem; font-weight: 700; }
@@ -124,7 +131,7 @@
 <body>
 <div class="wrap">
   <div class="topbar">
-    <button type="button" class="lang-toggle" id="btn-lang" aria-label="Language">EN</button>
+    <div id="lang-switch"></div>
   </div>
 
   <section id="screen-start">
@@ -195,8 +202,12 @@
     <div class="card">
       <div class="cta-box">
         <h2 style="margin:0 0 8px" data-i18n="planCtaTitle">免费 21 天圣经通读计划</h2>
-        <p class="muted" data-i18n="planCtaBody">按你的路径开始通读：打卡清单可下载，温柔陪伴你走完三周。</p>
-        <a class="btn btn-gold" href="plan.html" data-i18n="planCtaBtn">领取免费计划</a>
+        <p class="muted" data-i18n="planCtaBody">上面已给出按你路径的读经建议。计划页含基础打卡清单，完全免费、随时下载。</p>
+        <div class="nav" style="margin-top:12px">
+          <a class="btn btn-gold" href="plan.html" data-i18n="planCtaBtn">领取免费计划</a>
+          <a class="btn btn-ghost" href="#" target="_blank" rel="noopener" data-full-pack data-i18n="fullPackBtn">支持并获取完整打印配套</a>
+        </div>
+        <p class="mono-note" data-i18n="fullPackNote" style="margin:10px 0 0">计划本身免费公开；若你愿意支持，完整可打印配套会发到你的邮箱。</p>
       </div>
     </div>
 
@@ -216,11 +227,14 @@
 <canvas id="share-card" width="720" height="900"></canvas>
 <div class="toast" id="toast" role="status"></div>
 
+<script src="assets/bpq-lang.js"></script>
+<script src="assets/i18n-zh-hant.js"></script>
 <script>
 /* ========== CONFIG — fill these when ready ========== */
 const CONFIG = {
   SITE_URL: "https://bible-pathway-quiz.pages.dev/",
-  SUPPORT_URL: "https://ko-fi.com/biblepathwayquiz",  // tip jar
+  SUPPORT_URL: "https://ko-fi.com/biblepathwayquiz",  // tip jar / general support
+  FULL_PACK_URL: "https://ko-fi.com/s/15c3c49155",  // Full 21-Day Bible Reading Printable Pack ($5)
   CONTACT_EMAIL: "libin926nz@gmail.com",  // waitlist / companion
   // Optional soft analytics (uncomment one when ready):
   // PLAUSIBLE_DOMAIN: "libin926nz.github.io",
@@ -262,12 +276,14 @@ const I18N = {
     btnShare: "系统分享",
     btnCard: "分享卡片",
     planCtaTitle: "免费 21 天圣经通读计划",
-    planCtaBody: "按你的路径开始通读：打卡清单可下载，温柔陪伴你走完三周。",
+    planCtaBody: "上面已给出按你路径的读经建议。计划页含基础打卡清单，完全免费、随时下载。",
     planCtaBtn: "领取免费计划",
+    fullPackBtn: "支持并获取完整打印配套",
+    fullPackNote: "计划本身免费公开；若你愿意支持，完整可打印配套会发到你的邮箱。",
     monoTitle: "支持与陪伴",
-    monoIntro: "本工具完全免费。若它对你有帮助，欢迎支持或留下兴趣。",
-    supportBtn: "支持这个免费工具",
-    supportSoon: "赞助链接即将开放",
+    monoIntro: "测评与基础计划永久免费。若想鼓励我们，完整打印配套会在支持后发到你的邮箱；也可留下对「个人读经陪伴」的兴趣。",
+    supportBtn: "支持并获取完整打印配套",
+    supportSoon: "完整配套链接即将开放",
     waitlistTitle: "个人读经陪伴（付费，即将推出）",
     waitlistBody: "想按你的主路径获得更个人化的陪伴？留下兴趣，我们上线时通知你。",
     waitlistBtn: "通过邮件表达兴趣",
@@ -312,12 +328,14 @@ const I18N = {
     btnShare: "Share…",
     btnCard: "Share card",
     planCtaTitle: "Free 21-day Bible reading plan",
-    planCtaBody: "Start reading with a gentle checklist — three weeks of accompaniment.",
+    planCtaBody: "Your pathway tips are above. The plan page includes a free basic checklist — always available, no email required.",
     planCtaBtn: "Get the free plan",
+    fullPackBtn: "Support & get the full printable pack",
+    fullPackNote: "The plan stays free. If you’d like to support, the full printable pack is delivered to your email.",
     monoTitle: "Support & companion",
-    monoIntro: "This tool is free. If it helped you, you can support it or leave interest for what’s next.",
-    supportBtn: "Support this free tool",
-    supportSoon: "Sponsor link coming soon",
+    monoIntro: "The quiz and basic plan stay free forever. To encourage us, the full printable pack is emailed after support — or leave interest in a personal reading companion below.",
+    supportBtn: "Support & get the full printable pack",
+    supportSoon: "Full pack link coming soon",
     waitlistTitle: "Personal reading companion (paid, coming soon)",
     waitlistBody: "Want more personalized accompaniment for your top pathway? Leave interest and we’ll notify you at launch.",
     waitlistBtn: "Email your interest",
@@ -332,6 +350,7 @@ const I18N = {
     scaleAria: "How true is this of you",
   }
 };
+I18N["zh-Hant"] = BPQ_ZH_HANT.quiz.i18n;
 
 const PATHS = {
   naturalist: {
@@ -398,6 +417,9 @@ const PATHS = {
       tips: ["Timelines, maps, and book structure are your fuel.", "Still run the main storyline before deep arguments.", "Keep a “why?” list for later study."] }
   }
 };
+Object.keys(BPQ_ZH_HANT.quiz.paths).forEach(function (id) {
+  PATHS[id]["zh-Hant"] = BPQ_ZH_HANT.quiz.paths[id];
+});
 
 const SCALE = {
   zh: [
@@ -415,7 +437,8 @@ const SCALE = {
     { v: 3, label: "Sometimes true" },
     { v: 4, label: "Often true" },
     { v: 5, label: "Very true of me" }
-  ]
+  ],
+  "zh-Hant": BPQ_ZH_HANT.quiz.scale
 };
 
 const QUESTIONS = [
@@ -501,21 +524,17 @@ const QUESTIONS = [
     zh: "若长期没有新的学习与思考，我的属灵生活会觉得干涸。",
     en: "Without fresh learning and thinking for a long stretch, my spiritual life feels dry." }
 ];
+const Q_ZH_HANT = BPQ_ZH_HANT.quiz.questions;
 
-function detectLang() {
-  try {
-    const saved = localStorage.getItem("bpq_lang");
-    if (saved === "zh" || saved === "en") return saved;
-  } catch (e) {}
-  const nav = (navigator.language || navigator.userLanguage || "en").toLowerCase();
-  return nav.startsWith("zh") ? "zh" : "en";
-}
-
-let lang = detectLang();
+let lang = BPQ.detectLang();
+if (BPQ.parseLangParam()) BPQ.saveLang(lang);
 
 function t() { return I18N[lang]; }
 function pathL(p) { return p[lang]; }
-function qText(q) { return q[lang]; }
+function qText(q) {
+  if (lang === "zh-Hant") return Q_ZH_HANT[q.id] || q.zh;
+  return q[lang];
+}
 
 function shuffleStable(arr) {
   return [...arr].sort((a, b) => {
@@ -546,7 +565,6 @@ const el = {
   resultSub: document.getElementById("result-sub"),
   rankList: document.getElementById("rank-list"),
   toast: document.getElementById("toast"),
-  langBtn: document.getElementById("btn-lang"),
   supportWrap: document.getElementById("support-wrap"),
   waitlistWrap: document.getElementById("waitlist-wrap"),
 };
@@ -556,6 +574,22 @@ function toast(msg) {
   el.toast.classList.add("show");
   clearTimeout(toast._t);
   toast._t = setTimeout(() => el.toast.classList.remove("show"), 2200);
+}
+
+function fullPackUrl() {
+  return (CONFIG.FULL_PACK_URL || CONFIG.SUPPORT_URL || "").trim();
+}
+
+function wireFullPackLinks() {
+  const url = fullPackUrl();
+  document.querySelectorAll("[data-full-pack]").forEach(function (node) {
+    if (url) {
+      node.href = url;
+      node.classList.remove("hidden");
+    } else {
+      node.classList.add("hidden");
+    }
+  });
 }
 
 function setMeta() {
@@ -569,19 +603,19 @@ function setMeta() {
   set('meta[name="description"]', "content", i.metaDesc);
   set('meta[property="og:title"]', "content", i.ogTitle);
   set('meta[property="og:description"]', "content", i.ogDesc);
-  set('meta[property="og:locale"]', "content", lang === "zh" ? "zh_CN" : "en_US");
+  set('meta[property="og:locale"]', "content", BPQ.langMeta(lang).ogLocale);
   set('meta[name="twitter:title"]', "content", i.ogTitle);
   set('meta[name="twitter:description"]', "content", i.ogDesc);
 }
 
 function applyStaticI18n() {
   const i = t();
-  el.langBtn.textContent = i.langBtn;
   document.querySelectorAll("[data-i18n]").forEach(node => {
     const key = node.getAttribute("data-i18n");
     if (typeof i[key] === "string") node.textContent = i[key];
   });
   el.scale.setAttribute("aria-label", i.scaleAria);
+  wireFullPackLinks();
   setMeta();
   renderMono();
   if (!el.result.classList.contains("hidden") && lastRanked) renderResult();
@@ -679,10 +713,11 @@ function updateShareLinks(ranked) {
 function renderMono() {
   const i = t();
   el.supportWrap.innerHTML = "";
-  if (CONFIG.SUPPORT_URL && CONFIG.SUPPORT_URL.trim()) {
+  const packUrl = fullPackUrl();
+  if (packUrl) {
     const a = document.createElement("a");
     a.className = "btn btn-ghost";
-    a.href = CONFIG.SUPPORT_URL;
+    a.href = packUrl;
     a.target = "_blank";
     a.rel = "noopener";
     a.textContent = i.supportBtn;
@@ -708,12 +743,19 @@ function renderMono() {
 
   if (CONFIG.CONTACT_EMAIL && CONFIG.CONTACT_EMAIL.trim()) {
     const topName = lastRanked ? pathL(PATHS[lastRanked[0].id]).name : "";
-    const subj = encodeURIComponent(lang === "zh"
-      ? "读经陪伴候补 · " + (topName || "Bible Pathway Quiz")
-      : "Reading companion waitlist · " + (topName || "Bible Pathway Quiz"));
-    const body = encodeURIComponent(lang === "zh"
-      ? "你好，我对「个人读经陪伴」感兴趣。\n我的主路径：" + (topName || "（尚未测评）") + "\n\n来自：" + CONFIG.SITE_URL
-      : "Hi, I'm interested in the personal reading companion.\nMy top pathway: " + (topName || "(not yet taken)") + "\n\nFrom: " + CONFIG.SITE_URL);
+    let subj, body;
+    if (lang === "en") {
+      subj = "Reading companion waitlist · " + (topName || "Bible Pathway Quiz");
+      body = "Hi, I'm interested in the personal reading companion.\nMy top pathway: " + (topName || "(not yet taken)") + "\n\nFrom: " + CONFIG.SITE_URL;
+    } else if (lang === "zh-Hant") {
+      subj = "讀經陪伴候補 · " + (topName || "Bible Pathway Quiz");
+      body = "你好，我對「個人讀經陪伴」有興趣。\n我的主路徑：" + (topName || "（尚未測評）") + "\n\n來自：" + CONFIG.SITE_URL;
+    } else {
+      subj = "读经陪伴候补 · " + (topName || "Bible Pathway Quiz");
+      body = "你好，我对「个人读经陪伴」感兴趣。\n我的主路径：" + (topName || "（尚未测评）") + "\n\n来自：" + CONFIG.SITE_URL;
+    }
+    subj = encodeURIComponent(subj);
+    body = encodeURIComponent(body);
     const a = document.createElement("a");
     a.className = "btn btn-primary";
     a.href = "mailto:" + CONFIG.CONTACT_EMAIL + "?subject=" + subj + "&body=" + body;
@@ -744,7 +786,7 @@ function renderResult() {
       : '<p class="muted" style="margin:6px 0 0">' + p.blurb + "</p>";
     return '<div class="rank-item ' + (ri === 0 ? "top" : "") + '">' +
       '<div class="rank-head"><h3>' + (ri + 1) + ". " + p.name +
-      (lang === "zh" ? ' <span class="muted" style="font-weight:500;font-size:.82rem">· ' + enName + "</span>" : "") +
+      (BPQ.isChinese(lang) ? ' <span class="muted" style="font-weight:500;font-size:.82rem">· ' + enName + "</span>" : "") +
       "</h3>" +
       '<span class="pct">' + r.score + "/15 · " + r.pct + "%</span></div>" +
       '<div class="meter"><i style="width:' + r.pct + '%"></i></div>' +
@@ -778,7 +820,7 @@ async function drawShareCard() {
 
   ctx.fillStyle = "#fff";
   ctx.font = "600 28px system-ui, sans-serif";
-  ctx.fillText(lang === "zh" ? "圣经亲近方式测评" : "Bible Pathway Quiz", 72, 150);
+  ctx.fillText(BPQ.isChinese(lang) ? (t().shareCardTitle || "圣经亲近方式测评") : "Bible Pathway Quiz", 72, 150);
 
   ctx.font = "700 52px system-ui, sans-serif";
   wrapText(ctx, p.name, 72, 260, w - 144, 62);
@@ -823,11 +865,7 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   if (line) ctx.fillText(line, x, yy);
 }
 
-el.langBtn.addEventListener("click", () => {
-  lang = lang === "zh" ? "en" : "zh";
-  try { localStorage.setItem("bpq_lang", lang); } catch (e) {}
-  applyStaticI18n();
-});
+BPQ.initLangSwitcher("lang-switch", function () { return lang; }, function (next) { lang = next; }, applyStaticI18n);
 
 document.getElementById("btn-start").addEventListener("click", () => {
   idx = 0; show("quiz"); renderQuestion();
