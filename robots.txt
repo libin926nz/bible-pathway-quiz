@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://libin926nz.github.io/bible-pathway-quiz/sitemap.xml
+Sitemap: https://bible-pathway-quiz.pages.dev/sitemap.xml
