@@ -198,8 +198,12 @@
     <div class="card">
       <div class="cta-box">
         <h2 style="margin:0 0 8px" data-i18n="planCtaTitle">免费 21 天圣经通读计划</h2>
-        <p class="muted" data-i18n="planCtaBody">按你的路径开始通读：打卡清单可下载，温柔陪伴你走完三周。</p>
-        <a class="btn btn-gold" href="plan.html" data-i18n="planCtaBtn">领取免费计划</a>
+        <p class="muted" data-i18n="planCtaBody">上面已给出按你路径的读经建议。计划页含基础打卡清单，完全免费、随时下载。</p>
+        <div class="nav" style="margin-top:12px">
+          <a class="btn btn-gold" href="plan.html" data-i18n="planCtaBtn">领取免费计划</a>
+          <a class="btn btn-ghost" href="#" target="_blank" rel="noopener" data-full-pack data-i18n="fullPackBtn">支持并获取完整打印配套</a>
+        </div>
+        <p class="mono-note" data-i18n="fullPackNote" style="margin:10px 0 0">计划本身免费公开；若你愿意支持，完整可打印配套会发到你的邮箱。</p>
       </div>
     </div>
 
@@ -225,7 +229,8 @@
 /* ========== CONFIG — fill these when ready ========== */
 const CONFIG = {
   SITE_URL: "https://libin926nz.github.io/bible-pathway-quiz/",
-  SUPPORT_URL: "https://ko-fi.com/biblepathwayquiz",  // tip jar
+  SUPPORT_URL: "https://ko-fi.com/biblepathwayquiz",  // tip jar / general support
+  FULL_PACK_URL: "https://ko-fi.com/biblepathwayquiz",  // Ko-fi shop item — update when live
   CONTACT_EMAIL: "libin926nz@gmail.com",  // waitlist / companion
   // Optional soft analytics (uncomment one when ready):
   // PLAUSIBLE_DOMAIN: "libin926nz.github.io",
@@ -267,12 +272,14 @@ const I18N = {
     btnShare: "系统分享",
     btnCard: "分享卡片",
     planCtaTitle: "免费 21 天圣经通读计划",
-    planCtaBody: "按你的路径开始通读：打卡清单可下载，温柔陪伴你走完三周。",
+    planCtaBody: "上面已给出按你路径的读经建议。计划页含基础打卡清单，完全免费、随时下载。",
     planCtaBtn: "领取免费计划",
+    fullPackBtn: "支持并获取完整打印配套",
+    fullPackNote: "计划本身免费公开；若你愿意支持，完整可打印配套会发到你的邮箱。",
     monoTitle: "支持与陪伴",
-    monoIntro: "本工具完全免费。若它对你有帮助，欢迎支持或留下兴趣。",
-    supportBtn: "支持这个免费工具",
-    supportSoon: "赞助链接即将开放",
+    monoIntro: "测评与基础计划永久免费。若想鼓励我们，完整打印配套会在支持后发到你的邮箱；也可留下对「个人读经陪伴」的兴趣。",
+    supportBtn: "支持并获取完整打印配套",
+    supportSoon: "完整配套链接即将开放",
     waitlistTitle: "个人读经陪伴（付费，即将推出）",
     waitlistBody: "想按你的主路径获得更个人化的陪伴？留下兴趣，我们上线时通知你。",
     waitlistBtn: "通过邮件表达兴趣",
@@ -317,12 +324,14 @@ const I18N = {
     btnShare: "Share…",
     btnCard: "Share card",
     planCtaTitle: "Free 21-day Bible reading plan",
-    planCtaBody: "Start reading with a gentle checklist — three weeks of accompaniment.",
+    planCtaBody: "Your pathway tips are above. The plan page includes a free basic checklist — always available, no email required.",
     planCtaBtn: "Get the free plan",
+    fullPackBtn: "Support & get the full printable pack",
+    fullPackNote: "The plan stays free. If you’d like to support, the full printable pack is delivered to your email.",
     monoTitle: "Support & companion",
-    monoIntro: "This tool is free. If it helped you, you can support it or leave interest for what’s next.",
-    supportBtn: "Support this free tool",
-    supportSoon: "Sponsor link coming soon",
+    monoIntro: "The quiz and basic plan stay free forever. To encourage us, the full printable pack is emailed after support — or leave interest in a personal reading companion below.",
+    supportBtn: "Support & get the full printable pack",
+    supportSoon: "Full pack link coming soon",
     waitlistTitle: "Personal reading companion (paid, coming soon)",
     waitlistBody: "Want more personalized accompaniment for your top pathway? Leave interest and we’ll notify you at launch.",
     waitlistBtn: "Email your interest",
@@ -563,6 +572,22 @@ function toast(msg) {
   toast._t = setTimeout(() => el.toast.classList.remove("show"), 2200);
 }
 
+function fullPackUrl() {
+  return (CONFIG.FULL_PACK_URL || CONFIG.SUPPORT_URL || "").trim();
+}
+
+function wireFullPackLinks() {
+  const url = fullPackUrl();
+  document.querySelectorAll("[data-full-pack]").forEach(function (node) {
+    if (url) {
+      node.href = url;
+      node.classList.remove("hidden");
+    } else {
+      node.classList.add("hidden");
+    }
+  });
+}
+
 function setMeta() {
   const i = t();
   document.documentElement.lang = i.htmlLang;
@@ -586,6 +611,7 @@ function applyStaticI18n() {
     if (typeof i[key] === "string") node.textContent = i[key];
   });
   el.scale.setAttribute("aria-label", i.scaleAria);
+  wireFullPackLinks();
   setMeta();
   renderMono();
   if (!el.result.classList.contains("hidden") && lastRanked) renderResult();
@@ -683,10 +709,11 @@ function updateShareLinks(ranked) {
 function renderMono() {
   const i = t();
   el.supportWrap.innerHTML = "";
-  if (CONFIG.SUPPORT_URL && CONFIG.SUPPORT_URL.trim()) {
+  const packUrl = fullPackUrl();
+  if (packUrl) {
     const a = document.createElement("a");
     a.className = "btn btn-ghost";
-    a.href = CONFIG.SUPPORT_URL;
+    a.href = packUrl;
     a.target = "_blank";
     a.rel = "noopener";
     a.textContent = i.supportBtn;

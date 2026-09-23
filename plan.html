@@ -65,6 +65,7 @@
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-gold { background: linear-gradient(135deg, #b8893a, #d4a84b); color: #fff; margin-top: 12px; }
   .btn-ghost { background: #fff; color: var(--accent); border: 1px solid var(--line); margin-top: 10px; }
+  .mono-note { font-size: .78rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }
   .site-footer { margin-top: 20px; padding: 14px 4px 0; font-size: .78rem; color: var(--muted); text-align: center; }
 </style>
 </head>
@@ -91,6 +92,8 @@
     <h2 id="dlTitle"></h2>
     <p class="muted" id="dlBody" style="margin-top:0"></p>
     <a class="btn btn-gold" id="dlBtn" href="assets/21-day-checklist.pdf" download>Download PDF</a>
+    <a class="btn btn-ghost" id="packBtn" href="#" target="_blank" rel="noopener">Support & get full pack</a>
+    <p class="mono-note" id="packNote"></p>
     <a class="btn btn-ghost" id="quizBtn" href="./">Back to quiz</a>
   </div>
 
@@ -106,6 +109,15 @@
 <script src="assets/bpq-lang.js"></script>
 <script src="assets/i18n-zh-hant.js"></script>
 <script>
+const CONFIG = {
+  SUPPORT_URL: "https://ko-fi.com/biblepathwayquiz",
+  FULL_PACK_URL: "https://ko-fi.com/biblepathwayquiz"  // Ko-fi shop item — update when live
+};
+
+function fullPackUrl() {
+  return (CONFIG.FULL_PACK_URL || CONFIG.SUPPORT_URL || "").trim();
+}
+
 const I18N = {
   zh: {
     htmlLang: "zh-CN",
@@ -122,9 +134,11 @@ const I18N = {
       "可打印 PDF，手机或纸本都能用",
       "可与「圣经亲近方式测评」结果搭配：按你的主路径调整环境与节奏"
     ],
-    dlTitle: "领取清单",
-    dlBody: "点击下方直接下载 PDF。欢迎分享给同样想开始通读的朋友。",
+    dlTitle: "免费基础清单",
+    dlBody: "这份基础打卡 PDF 永久免费，无需留邮箱。下载即可开始，也欢迎分享给想通读的朋友。",
     dlBtn: "下载 21 天打卡清单（PDF）",
+    fullPackBtn: "支持并获取完整打印配套",
+    fullPackNote: "计划本身免费公开；若你愿意支持，完整可打印配套会发到你的邮箱。",
     quizBtn: "返回亲近方式测评",
     pathTitle: "还不知道哪种路径适合你？",
     pathBody: "先花 3–4 分钟做免费测评，再按你的主路径开始通读，会更对味。",
@@ -147,9 +161,11 @@ const I18N = {
       "Printable PDF — phone or paper",
       "Pairs with the Bible Pathway Quiz: adjust setting and pace to your top pathway"
     ],
-    dlTitle: "Get the checklist",
-    dlBody: "Download the PDF below. Feel free to share it with friends who want to start reading through.",
+    dlTitle: "Free basic checklist",
+    dlBody: "This basic PDF is always free — no email required. Download and start, or share with a friend.",
     dlBtn: "Download 21-day checklist (PDF)",
+    fullPackBtn: "Support & get the full printable pack",
+    fullPackNote: "The plan stays free. If you’d like to support, the full printable pack is delivered to your email.",
     quizBtn: "Back to pathway quiz",
     pathTitle: "Not sure which pathway fits you?",
     pathBody: "Take the free 3–4 minute quiz first, then start the plan with your primary pathway in mind.",
@@ -178,6 +194,16 @@ function apply() {
   document.getElementById("dlTitle").textContent = i.dlTitle;
   document.getElementById("dlBody").textContent = i.dlBody;
   document.getElementById("dlBtn").textContent = i.dlBtn;
+  const packBtn = document.getElementById("packBtn");
+  const packUrl = fullPackUrl();
+  if (packUrl) {
+    packBtn.href = packUrl;
+    packBtn.textContent = i.fullPackBtn;
+    packBtn.classList.remove("hidden");
+  } else {
+    packBtn.classList.add("hidden");
+  }
+  document.getElementById("packNote").textContent = i.fullPackNote;
   document.getElementById("quizBtn").textContent = i.quizBtn;
   document.getElementById("pathTitle").textContent = i.pathTitle;
   document.getElementById("pathBody").textContent = i.pathBody;
