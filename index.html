@@ -5,7 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
 <meta name="theme-color" content="#2c4a6e" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>圣经亲近方式测评</title>
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://libin926nz.github.io/bible-pathway-quiz/" />
+
+<title>圣经亲近方式测评 · Bible Pathway Quiz</title>
+<meta name="description" content="免费3–4分钟圣经亲近方式测评：找出你最自然亲近神、读圣经的路径。中英双语。Free bilingual quiz inspired by Sacred Pathways — discover how you best connect with God and Scripture." />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://libin926nz.github.io/bible-pathway-quiz/" />
+<meta property="og:title" content="圣经亲近方式测评 · Bible Pathway Quiz" />
+<meta property="og:description" content="免费找出你最自然的读经与亲近神路径。Free bilingual quiz — discover your sacred pathway for reading the Bible." />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:site_name" content="Bible Pathway Quiz" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="圣经亲近方式测评 · Bible Pathway Quiz" />
+<meta name="twitter:description" content="免费3–4分钟双语测评：找出你最自然亲近神、读圣经的路径。" />
+
 <style>
   :root {
     --bg: #f4efe6;
@@ -25,11 +42,18 @@
     line-height: 1.5; }
   body { min-height: 100dvh; }
   .wrap { max-width: 560px; margin: 0 auto; padding: 16px 14px calc(28px + var(--safe-bottom)); }
+  .topbar { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+  .lang-toggle {
+    appearance: none; border: 1px solid var(--line); background: var(--card);
+    border-radius: 999px; padding: 8px 14px; font-size: .85rem; font-weight: 650;
+    color: var(--accent); cursor: pointer; min-height: 40px; box-shadow: var(--shadow);
+  }
   .hero { background: linear-gradient(145deg, #2c4a6e, #3f6a8f 55%, #8a6b3a); color: #fff; border-radius: 18px; padding: 22px 18px; box-shadow: var(--shadow); }
   .hero .tag { display: inline-block; font-size: 12px; background: rgba(255,255,255,.18); padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
   .hero h1 { margin: 0 0 8px; font-size: 1.4rem; font-weight: 700; }
   .hero p { margin: 0; opacity: .95; font-size: .93rem; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px 14px; margin-top: 14px; box-shadow: var(--shadow); }
+  .card h2 { margin: 0 0 10px; font-size: 1.05rem; }
   .muted { color: var(--muted); font-size: .9rem; }
   .progress-wrap { margin-top: 12px; position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 0 4px; }
   .progress-label { display: flex; justify-content: space-between; font-size: .82rem; color: var(--muted); margin-bottom: 6px; }
@@ -54,11 +78,12 @@
   }
   .opt.selected .dot { border-color: var(--accent); background: var(--accent); color: #fff; }
   .opt .lab { flex: 1; }
-  .nav { display: flex; gap: 10px; margin-top: 16px; }
-  button.btn { appearance: none; border: 0; border-radius: 12px; padding: 14px 16px; font-size: 1rem; font-weight: 650; cursor: pointer; min-height: 48px; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  button.btn, a.btn { appearance: none; border: 0; border-radius: 12px; padding: 14px 16px; font-size: 1rem; font-weight: 650; cursor: pointer; min-height: 48px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
   .btn-primary { background: var(--accent); color: #fff; flex: 1; }
   .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
-  .btn-ghost { background: #fff; color: var(--accent); border: 1px solid var(--line); }
+  .btn-ghost { background: #fff; color: var(--accent); border: 1px solid var(--line); flex: 1; }
+  .btn-gold { background: linear-gradient(135deg, #b8893a, #d4a84b); color: #fff; flex: 1; }
   .hidden { display: none !important; }
   .rank { display: grid; gap: 12px; }
   .rank-item { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: #fff; }
@@ -73,123 +98,420 @@
   .footer-note { margin-top: 16px; font-size: .8rem; color: var(--muted); }
   .start-list { margin: 10px 0 0; padding-left: 18px; }
   .start-list li { margin: 6px 0; }
+  .share-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .share-grid a, .share-grid button {
+    appearance: none; border: 1px solid var(--line); background: #fff; border-radius: 12px;
+    padding: 12px 10px; min-height: 48px; font-size: .9rem; font-weight: 650; color: var(--accent);
+    cursor: pointer; text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center;
+  }
+  .cta-box { border: 1px dashed #c9b07a; background: linear-gradient(180deg, #fffaf0, #fff); border-radius: 14px; padding: 14px; margin-top: 4px; }
+  .cta-box p { margin: 0 0 12px; font-size: .93rem; }
+  .mono-note { font-size: .78rem; color: var(--muted); margin-top: 8px; }
+  .site-footer { margin-top: 20px; padding: 14px 4px 0; font-size: .78rem; color: var(--muted); text-align: center; line-height: 1.55; }
+  .toast {
+    position: fixed; left: 50%; bottom: calc(24px + var(--safe-bottom)); transform: translateX(-50%) translateY(20px);
+    background: #1f2a37; color: #fff; padding: 10px 16px; border-radius: 999px; font-size: .88rem;
+    opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 50; max-width: 90vw;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  canvas#share-card { display: none; }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="topbar">
+    <button type="button" class="lang-toggle" id="btn-lang" aria-label="Language">EN</button>
+  </div>
+
   <section id="screen-start">
     <div class="hero">
-      <div class="tag">免费 · 手机网页 · 约 3–4 分钟</div>
-      <h1>圣经亲近方式测评</h1>
-      <p>像性格测评一样，找出你最自然亲近神、读圣经的路径。含「智性 / Learner」型。</p>
+      <div class="tag" data-i18n="heroTag">免费 · 手机网页 · 约 3–4 分钟</div>
+      <h1 data-i18n="heroTitle">圣经亲近方式测评</h1>
+      <p data-i18n="heroSub">像性格测评一样，找出你最自然亲近神、读圣经的路径。含「智性 / Learner」型。</p>
     </div>
     <div class="card">
-      <p class="muted" style="margin-top:0">受 Sacred Pathways（九条属灵路径）启发，题目为原创中文。没有对错，选出真实的你即可。</p>
+      <p class="muted" style="margin-top:0" data-i18n="startIntro">受 Sacred Pathways（九条属灵路径）启发，题目为原创。没有对错，选出真实的你即可。</p>
       <ul class="start-list muted">
-        <li>27 题，点选项后自动进入下一题</li>
-        <li>按「真实的你」选，不是「理想的你」</li>
-        <li>结束后给出前三路径与读经建议</li>
+        <li data-i18n="startLi1">27 题，点选项后自动进入下一题</li>
+        <li data-i18n="startLi2">按「真实的你」选，不是「理想的你」</li>
+        <li data-i18n="startLi3">结束后给出前三路径与读经建议</li>
       </ul>
       <div class="nav">
-        <button class="btn btn-primary" id="btn-start" type="button">开始测评</button>
+        <button class="btn btn-primary" id="btn-start" type="button" data-i18n="btnStart">开始测评</button>
       </div>
     </div>
   </section>
 
   <section id="screen-quiz" class="hidden">
     <div class="progress-wrap">
-      <div class="progress-label"><span id="progress-text">第 1 / 27 题</span><span id="progress-pct">4%</span></div>
+      <div class="progress-label"><span id="progress-text">1 / 27</span><span id="progress-pct">4%</span></div>
       <div class="bar"><span id="progress-bar"></span></div>
     </div>
     <div class="card">
       <div class="q-num" id="q-num">QUESTION 01</div>
       <div class="q-text" id="q-text"></div>
-      <p class="hint">点一下即可，会自动下一题</p>
-      <div class="scale" id="scale" role="listbox" aria-label="符合程度"></div>
+      <p class="hint" data-i18n="quizHint">点一下即可，会自动下一题</p>
+      <div class="scale" id="scale" role="listbox" aria-label="scale"></div>
       <div class="nav">
-        <button class="btn btn-ghost" id="btn-prev" type="button">上一题</button>
+        <button class="btn btn-ghost" id="btn-prev" type="button" data-i18n="btnPrev">上一题</button>
       </div>
     </div>
   </section>
 
   <section id="screen-result" class="hidden">
     <div class="hero">
-      <div class="tag">你的测评结果</div>
+      <div class="tag" data-i18n="resultTag">你的测评结果</div>
       <h1 id="result-title">你的主路径</h1>
       <p id="result-sub"></p>
     </div>
+
     <div class="card">
-      <h2 style="margin:0 0 10px;font-size:1.05rem">完整排名</h2>
+      <h2 data-i18n="rankTitle">完整排名</h2>
       <div class="rank" id="rank-list"></div>
-      <p class="footer-note">最高分表示更自然、更常被滋养的路径，不是更属灵。多数人有 2–3 条主路径。</p>
+      <p class="footer-note" data-i18n="rankNote">最高分表示更自然、更常被滋养的路径，不是更属灵。多数人有 2–3 条主路径。</p>
       <div class="nav">
-        <button class="btn btn-ghost" id="btn-restart" type="button">再测一次</button>
-        <button class="btn btn-primary" id="btn-copy" type="button">复制结果</button>
+        <button class="btn btn-ghost" id="btn-restart" type="button" data-i18n="btnRestart">再测一次</button>
+        <button class="btn btn-primary" id="btn-copy" type="button" data-i18n="btnCopy">复制结果</button>
       </div>
     </div>
+
+    <div class="card">
+      <h2 data-i18n="shareTitle">分享结果</h2>
+      <p class="muted" style="margin-top:0" data-i18n="shareIntro">把你的主路径发给朋友，一起发现不同的亲近神方式。</p>
+      <div class="share-grid">
+        <button type="button" id="btn-native-share" data-i18n="btnShare">系统分享</button>
+        <button type="button" id="btn-card" data-i18n="btnCard">分享卡片</button>
+        <a id="share-x" href="#" target="_blank" rel="noopener">X / Twitter</a>
+        <a id="share-fb" href="#" target="_blank" rel="noopener">Facebook</a>
+        <a id="share-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="share-tg" href="#" target="_blank" rel="noopener">Telegram</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cta-box">
+        <h2 style="margin:0 0 8px" data-i18n="planCtaTitle">免费 21 天圣经通读计划</h2>
+        <p class="muted" data-i18n="planCtaBody">按你的路径开始通读：打卡清单可下载，温柔陪伴你走完三周。</p>
+        <a class="btn btn-gold" href="plan.html" data-i18n="planCtaBtn">领取免费计划</a>
+      </div>
+    </div>
+
+    <div class="card" id="mono-block">
+      <h2 data-i18n="monoTitle">支持与陪伴</h2>
+      <p class="muted" style="margin-top:0" data-i18n="monoIntro">本工具完全免费。若它对你有帮助，欢迎支持或留下兴趣。</p>
+      <div class="nav" id="support-wrap"></div>
+      <div id="waitlist-wrap" style="margin-top:12px"></div>
+    </div>
   </section>
+
+  <footer class="site-footer" data-i18n="footerDisclaimer">
+    本测评受 Sacred Pathways 九条属灵路径启发，题目与解读为原创，仅供自我认识与读经启发，并非临床或属灵权威诊断。
+  </footer>
 </div>
 
+<canvas id="share-card" width="720" height="900"></canvas>
+<div class="toast" id="toast" role="status"></div>
+
 <script>
-const PATHS = {
-  naturalist: { id:"naturalist", name:"自然型", en:"Naturalist", blurb:"在受造世界里最容易遇见神。",
-    tips:["读创世记 1–2、诗篇 8 / 19 / 104 时可走到户外。","通读时留意地、河、山、海如何参与上帝的故事。","地图册对你特别有用。"] },
-  sensate: { id:"sensate", name:"感官型", en:"Sensate", blurb:"美、音乐、礼仪与感觉会打开你的心。",
-    tips:["可用有声圣经或圣乐伴随部分章节。","圣殿、会幕、敬拜场景值得慢一点读。","允许自己被经文画面抓住，不必急着记要点。"] },
-  traditionalist: { id:"traditionalist", name:"传统型", en:"Traditionalist", blurb:"稳定的节奏与既有路径让你安心成长。",
-    tips:["很适合按日打卡的通读清单。","留意以色列节期与敬拜传统在经文中的位置。","固定时间、固定译本会帮你走得更远。"] },
-  ascetic: { id:"ascetic", name:"简朴型", en:"Ascetic", blurb:"安静、独处、少干扰时最容易专注于神。",
-    tips:["通读选安静时段，关掉通知。","旷野、禁食、独处经文会对你特别说话。","串珠先跳过，减少跳转噪音。"] },
-  activist: { id:"activist", name:"行动型", en:"Activist", blurb:"读经时你关心公义、使命与下一步行动。",
-    tips:["先知书、使徒行传会特别点燃你。","每天可读完写一句可付诸行动的一小步。","通读阶段先听完整故事，再谈全面行动。"] },
-  caregiver: { id:"caregiver", name:"关怀型", en:"Caregiver", blurb:"在服事与陪伴人时最能体会神的爱。",
-    tips:["留意耶稣医治、喂养、靠近边缘人的段落。","路加福音与雅各书会对你特别亲切。","笔记可记「神如何对待软弱的人」。"] },
-  enthusiast: { id:"enthusiast", name:"热情型", en:"Enthusiast", blurb:"庆祝、赞美与活泼敬拜让你充满活力。",
-    tips:["诗篇赞美篇、五旬节、启示录敬拜场面会激励你。","读完一段可用一句简短赞美收尾。","也给叙事与律法书足够耐心。"] },
-  contemplative: { id:"contemplative", name:"默观型", en:"Contemplative", blurb:"安静爱神、内在相交比大量信息更滋养你。",
-    tips:["约翰福音、部分书信与诗篇适合慢慢咀嚼。","通读可快，但每天留几分钟回想一句经文。","精读阶段你会如鱼得水；现在先走完主线。"] },
-  intellectual: { id:"intellectual", name:"智性型（Learner）", en:"Intellectual / Learner", blurb:"明白真理、理清结构时，你最觉得靠近神。",
-    tips:["时间线、地图、书卷结构正是你的燃料。","通读仍建议先跑主线，再深入论证。","「为什么」可记疑问清单留给精读。"] }
+/* ========== CONFIG — fill these when ready ========== */
+const CONFIG = {
+  SITE_URL: "https://libin926nz.github.io/bible-pathway-quiz/",
+  SUPPORT_URL: "",          // e.g. "https://ko-fi.com/yourpage" — leave empty to hide button
+  CONTACT_EMAIL: "",        // e.g. "you@example.com" — leave empty to show soft waitlist message
+  // Optional soft analytics (uncomment one when ready):
+  // PLAUSIBLE_DOMAIN: "libin926nz.github.io",
+  // GOATCOUNTER_CODE: "your-code",
 };
 
-const SCALE = [
-  { v:0, label:"完全不符合" },
-  { v:1, label:"很少如此" },
-  { v:2, label:"偶尔如此" },
-  { v:3, label:"有时如此" },
-  { v:4, label:"经常如此" },
-  { v:5, label:"非常符合" }
-];
+const SHARE_UTM = "?utm_source=share&utm_medium=result";
+const SHARE_URL = CONFIG.SITE_URL + SHARE_UTM;
+
+const I18N = {
+  zh: {
+    htmlLang: "zh-CN",
+    langBtn: "EN",
+    docTitle: "圣经亲近方式测评 · Bible Pathway Quiz",
+    metaDesc: "免费3–4分钟圣经亲近方式测评：找出你最自然亲近神、读圣经的路径。中英双语。",
+    ogTitle: "圣经亲近方式测评 · Bible Pathway Quiz",
+    ogDesc: "免费找出你最自然的读经与亲近神路径。",
+    heroTag: "免费 · 手机网页 · 约 3–4 分钟",
+    heroTitle: "圣经亲近方式测评",
+    heroSub: "像性格测评一样，找出你最自然亲近神、读圣经的路径。含「智性 / Learner」型。",
+    startIntro: "受 Sacred Pathways（九条属灵路径）启发，题目为原创。没有对错，选出真实的你即可。",
+    startLi1: "27 题，点选项后自动进入下一题",
+    startLi2: "按「真实的你」选，不是「理想的你」",
+    startLi3: "结束后给出前三路径与读经建议",
+    btnStart: "开始测评",
+    quizHint: "点一下即可，会自动下一题",
+    btnPrev: "上一题",
+    qNum: (n) => "第 " + n + " 题",
+    progress: (n, total) => n + " / " + total,
+    resultTag: "你的测评结果",
+    resultTitle: (name) => "主路径：" + name,
+    resultSub: (blurb, n2, n3) => blurb + " 其次：" + n2 + "、" + n3 + "。",
+    rankTitle: "完整排名",
+    rankNote: "最高分表示更自然、更常被滋养的路径，不是更属灵。多数人有 2–3 条主路径。",
+    btnRestart: "再测一次",
+    btnCopy: "复制结果",
+    shareTitle: "分享结果",
+    shareIntro: "把你的主路径发给朋友，一起发现不同的亲近神方式。",
+    btnShare: "系统分享",
+    btnCard: "分享卡片",
+    planCtaTitle: "免费 21 天圣经通读计划",
+    planCtaBody: "按你的路径开始通读：打卡清单可下载，温柔陪伴你走完三周。",
+    planCtaBtn: "领取免费计划",
+    monoTitle: "支持与陪伴",
+    monoIntro: "本工具完全免费。若它对你有帮助，欢迎支持或留下兴趣。",
+    supportBtn: "支持这个免费工具",
+    supportSoon: "赞助链接即将开放",
+    waitlistTitle: "个人读经陪伴（付费，即将推出）",
+    waitlistBody: "想按你的主路径获得更个人化的陪伴？留下兴趣，我们上线时通知你。",
+    waitlistBtn: "通过邮件表达兴趣",
+    waitlistSoon: "即将推出 — 先分享测评，帮助我们更快上线",
+    copied: "已复制到剪贴板",
+    copyFail: "请手动复制",
+    shareFail: "分享不可用，请用下方按钮",
+    cardReady: "卡片已生成，可保存或分享",
+    footerDisclaimer: "本测评受 Sacred Pathways 九条属灵路径启发，题目与解读为原创，仅供自我认识与读经启发，并非临床或属灵权威诊断。",
+    summaryHead: "圣经亲近方式测评结果",
+    shareText: (name, pct) => "我测出了圣经亲近主路径：「" + name + "」（" + pct + "%）。你也来试试？",
+    scaleAria: "符合程度",
+  },
+  en: {
+    htmlLang: "en",
+    langBtn: "中文",
+    docTitle: "Bible Pathway Quiz · How you best connect with God",
+    metaDesc: "Free 3–4 minute bilingual quiz: discover how you most naturally draw near to God and read Scripture. Inspired by Sacred Pathways.",
+    ogTitle: "Bible Pathway Quiz — Discover your sacred pathway",
+    ogDesc: "Free bilingual quiz: find how you best connect with God and Scripture.",
+    heroTag: "Free · Mobile · ~3–4 minutes",
+    heroTitle: "Bible Pathway Quiz",
+    heroSub: "Like a personality quiz — discover the pathway that helps you draw near to God and Scripture most naturally. Includes Intellectual / Learner.",
+    startIntro: "Inspired by Sacred Pathways (nine spiritual pathways). Questions are original. No right or wrong — choose what is true of you.",
+    startLi1: "27 questions; tap an option to auto-advance",
+    startLi2: "Choose the real you, not the ideal you",
+    startLi3: "Get your top 3 pathways and reading tips",
+    btnStart: "Start the quiz",
+    quizHint: "Tap once — it advances automatically",
+    btnPrev: "Previous",
+    qNum: (n) => "Question " + n,
+    progress: (n, total) => n + " / " + total,
+    resultTag: "Your results",
+    resultTitle: (name) => "Primary pathway: " + name,
+    resultSub: (blurb, n2, n3) => blurb + " Next: " + n2 + ", " + n3 + ".",
+    rankTitle: "Full ranking",
+    rankNote: "Higher scores mean pathways that feel more natural and nourishing — not “more spiritual.” Most people have 2–3 primary pathways.",
+    btnRestart: "Retake",
+    btnCopy: "Copy summary",
+    shareTitle: "Share your result",
+    shareIntro: "Send your primary pathway to a friend and explore how differently we draw near to God.",
+    btnShare: "Share…",
+    btnCard: "Share card",
+    planCtaTitle: "Free 21-day Bible reading plan",
+    planCtaBody: "Start reading with a gentle checklist — three weeks of accompaniment.",
+    planCtaBtn: "Get the free plan",
+    monoTitle: "Support & companion",
+    monoIntro: "This tool is free. If it helped you, you can support it or leave interest for what’s next.",
+    supportBtn: "Support this free tool",
+    supportSoon: "Sponsor link coming soon",
+    waitlistTitle: "Personal reading companion (paid, coming soon)",
+    waitlistBody: "Want more personalized accompaniment for your top pathway? Leave interest and we’ll notify you at launch.",
+    waitlistBtn: "Email your interest",
+    waitlistSoon: "Coming soon — share the quiz to help us launch",
+    copied: "Copied to clipboard",
+    copyFail: "Please copy manually",
+    shareFail: "Sharing unavailable — use the buttons below",
+    cardReady: "Card ready — save or share",
+    footerDisclaimer: "Inspired by Sacred Pathways. Questions and interpretations are original. For self-reflection and reading encouragement only — not a clinical or spiritual-authority assessment.",
+    summaryHead: "Bible Pathway Quiz results",
+    shareText: (name, pct) => "My top Bible pathway is “" + name + "” (" + pct + "%). Take the free quiz:",
+    scaleAria: "How true is this of you",
+  }
+};
+
+const PATHS = {
+  naturalist: {
+    id: "naturalist",
+    zh: { name: "自然型", blurb: "在受造世界里最容易遇见神。",
+      tips: ["读创世记 1–2、诗篇 8 / 19 / 104 时可走到户外。", "通读时留意地、河、山、海如何参与上帝的故事。", "地图册对你特别有用。"] },
+    en: { name: "Naturalist", blurb: "You most easily meet God in the created world.",
+      tips: ["Take Genesis 1–2 and Psalms 8 / 19 / 104 outdoors when you can.", "Notice how land, rivers, mountains, and seas join God’s story.", "A Bible map booklet will feel especially useful."] }
+  },
+  sensate: {
+    id: "sensate",
+    zh: { name: "感官型", blurb: "美、音乐、礼仪与感觉会打开你的心。",
+      tips: ["可用有声圣经或圣乐伴随部分章节。", "圣殿、会幕、敬拜场景值得慢一点读。", "允许自己被经文画面抓住，不必急着记要点。"] },
+    en: { name: "Sensate", blurb: "Beauty, music, liturgy, and the senses open your heart.",
+      tips: ["Try an audio Bible or sacred music with some passages.", "Slow down for temple, tabernacle, and worship scenes.", "Let imagery catch you — you don’t have to rush to “takeaways.”"] }
+  },
+  traditionalist: {
+    id: "traditionalist",
+    zh: { name: "传统型", blurb: "稳定的节奏与既有路径让你安心成长。",
+      tips: ["很适合按日打卡的通读清单。", "留意以色列节期与敬拜传统在经文中的位置。", "固定时间、固定译本会帮你走得更远。"] },
+    en: { name: "Traditionalist", blurb: "Steady rhythms and trusted paths help you grow in peace.",
+      tips: ["A daily checklist reading plan fits you well.", "Notice Israel’s feasts and worship traditions in Scripture.", "A fixed time and translation will help you go farther."] }
+  },
+  ascetic: {
+    id: "ascetic",
+    zh: { name: "简朴型", blurb: "安静、独处、少干扰时最容易专注于神。",
+      tips: ["通读选安静时段，关掉通知。", "旷野、禁食、独处经文会对你特别说话。", "串珠先跳过，减少跳转噪音。"] },
+    en: { name: "Ascetic", blurb: "Quiet, solitude, and fewer distractions help you focus on God.",
+      tips: ["Choose quiet slots; silence notifications.", "Wilderness, fasting, and solitude passages will speak to you.", "Skip cross-references at first to reduce jump noise."] }
+  },
+  activist: {
+    id: "activist",
+    zh: { name: "行动型", blurb: "读经时你关心公义、使命与下一步行动。",
+      tips: ["先知书、使徒行传会特别点燃你。", "每天可读完写一句可付诸行动的一小步。", "通读阶段先听完整故事，再谈全面行动。"] },
+    en: { name: "Activist", blurb: "You care about justice, mission, and the next faithful step.",
+      tips: ["The Prophets and Acts will especially light you up.", "After reading, jot one small actionable step.", "During a full read-through, hear the whole story before over-planning."] }
+  },
+  caregiver: {
+    id: "caregiver",
+    zh: { name: "关怀型", blurb: "在服事与陪伴人时最能体会神的爱。",
+      tips: ["留意耶稣医治、喂养、靠近边缘人的段落。", "路加福音与雅各书会对你特别亲切。", "笔记可记「神如何对待软弱的人」。"] },
+    en: { name: "Caregiver", blurb: "You taste God’s love most while serving and accompanying others.",
+      tips: ["Notice Jesus healing, feeding, and drawing near the margins.", "Luke and James will feel especially familiar.", "Journal how God treats the weak and weary."] }
+  },
+  enthusiast: {
+    id: "enthusiast",
+    zh: { name: "热情型", blurb: "庆祝、赞美与活泼敬拜让你充满活力。",
+      tips: ["诗篇赞美篇、五旬节、启示录敬拜场面会激励你。", "读完一段可用一句简短赞美收尾。", "也给叙事与律法书足够耐心。"] },
+    en: { name: "Enthusiast", blurb: "Celebration, praise, and lively worship energize you.",
+      tips: ["Praise psalms, Pentecost, and Revelation’s worship scenes will lift you.", "End a reading with a short word of praise.", "Give narrative and law books patient attention too."] }
+  },
+  contemplative: {
+    id: "contemplative",
+    zh: { name: "默观型", blurb: "安静爱神、内在相交比大量信息更滋养你。",
+      tips: ["约翰福音、部分书信与诗篇适合慢慢咀嚼。", "通读可快，但每天留几分钟回想一句经文。", "精读阶段你会如鱼得水；现在先走完主线。"] },
+    en: { name: "Contemplative", blurb: "Quiet love for God and inward communion nourish you more than lots of information.",
+      tips: ["John, some epistles, and the Psalms suit slow chewing.", "Read through steadily, but linger a few minutes on one verse daily.", "Deep study will feel natural later — finish the main storyline first."] }
+  },
+  intellectual: {
+    id: "intellectual",
+    zh: { name: "智性型（Learner）", blurb: "明白真理、理清结构时，你最觉得靠近神。",
+      tips: ["时间线、地图、书卷结构正是你的燃料。", "通读仍建议先跑主线，再深入论证。", "「为什么」可记疑问清单留给精读。"] },
+    en: { name: "Intellectual / Learner", blurb: "Understanding truth and clarifying structure makes you feel closest to God.",
+      tips: ["Timelines, maps, and book structure are your fuel.", "Still run the main storyline before deep arguments.", "Keep a “why?” list for later study."] }
+  }
+};
+
+const SCALE = {
+  zh: [
+    { v: 0, label: "完全不符合" },
+    { v: 1, label: "很少如此" },
+    { v: 2, label: "偶尔如此" },
+    { v: 3, label: "有时如此" },
+    { v: 4, label: "经常如此" },
+    { v: 5, label: "非常符合" }
+  ],
+  en: [
+    { v: 0, label: "Not at all true" },
+    { v: 1, label: "Rarely true" },
+    { v: 2, label: "Occasionally true" },
+    { v: 3, label: "Sometimes true" },
+    { v: 4, label: "Often true" },
+    { v: 5, label: "Very true of me" }
+  ]
+};
 
 const QUESTIONS = [
-  { id:"n1", path:"naturalist", text:"在户外（海边、山里、公园）时，我更容易想起神的创造与同在。" },
-  { id:"n2", path:"naturalist", text:"读到圣经里的地理、动植物、天气时，我会特别有画面感。" },
-  { id:"n3", path:"naturalist", text:"比起封闭教室，我更想在自然环境中安静读一段经文。" },
-  { id:"s1", path:"sensate", text:"优美的音乐、艺术或仪式感，常能立刻把我的心带回神面前。" },
-  { id:"s2", path:"sensate", text:"圣经里关于圣殿、香气、灯台、号角、白衣等感官细节会抓住我。" },
-  { id:"s3", path:"sensate", text:"听朗读或跟着诗歌读经，往往比默读更打动我。" },
-  { id:"t1", path:"traditionalist", text:"固定的读经计划、教会年历或熟悉的敬拜流程，会给我安全感。" },
-  { id:"t2", path:"traditionalist", text:"我看重「按规矩、有传承」地读圣经，而不是每天都换花样。" },
-  { id:"t3", path:"traditionalist", text:"以色列的节期、律例与教会历史上的读经习惯，会让我感到扎实。" },
-  { id:"a1", path:"ascetic", text:"独处、安静、减少干扰时，我最容易专注地遇见神。" },
-  { id:"a2", path:"ascetic", text:"简单的环境（少装饰、少社交）反而更助于我读经祷告。" },
-  { id:"a3", path:"ascetic", text:"禁食、退修或刻意放下娱乐时，我的属灵注意力会更清晰。" },
-  { id:"c1", path:"activist", text:"读经时我常想：这段经文要我为公义、使命或改变做些什么。" },
-  { id:"c2", path:"activist", text:"先知斥责不义、耶稣对抗压迫的段落，特别能点燃我。" },
-  { id:"c3", path:"activist", text:"若读经长期停留在「只明白、不行动」，我会感到焦躁。" },
-  { id:"g1", path:"caregiver", text:"服事、照顾人、陪伴软弱者时，我最能体会神的爱。" },
-  { id:"g2", path:"caregiver", text:"圣经里怜悯穷人、病人、陌生人的故事，最容易触动我。" },
-  { id:"g3", path:"caregiver", text:"读完经文，我常想到某个需要关心的具体的人。" },
-  { id:"e1", path:"enthusiast", text:"赞美、庆祝、热烈敬拜会让我觉得神很近、很真实。" },
-  { id:"e2", path:"enthusiast", text:"我喜欢见证、复兴、圣灵工作这类充满活力的经文与故事。" },
-  { id:"e3", path:"enthusiast", text:"读经后若能自然地赞美或感恩，那天才算「读到位」。" },
-  { id:"m1", path:"contemplative", text:"安静地爱神、内在相交，比吸收很多知识信息更滋养我。" },
-  { id:"m2", path:"contemplative", text:"我愿意花时间只停留在一句经文上，反复思想。" },
-  { id:"m3", path:"contemplative", text:"静默祷告、独处爱主，对我来说是核心而不是附加项。" },
-  { id:"i1", path:"intellectual", text:"学到关于神或圣经的新理解时，我最觉得自己在成长、靠近神。" },
-  { id:"i2", path:"intellectual", text:"我享受理清书卷结构、时间线、论点与「这段到底在说什么」。" },
-  { id:"i3", path:"intellectual", text:"若长期没有新的学习与思考，我的属灵生活会觉得干涸。" }
+  { id: "n1", path: "naturalist",
+    zh: "在户外（海边、山里、公园）时，我更容易想起神的创造与同在。",
+    en: "Outdoors (by the sea, in the mountains, or a park), I more easily remember God’s creation and presence." },
+  { id: "n2", path: "naturalist",
+    zh: "读到圣经里的地理、动植物、天气时，我会特别有画面感。",
+    en: "When Scripture mentions geography, plants, animals, or weather, I get a vivid mental picture." },
+  { id: "n3", path: "naturalist",
+    zh: "比起封闭教室，我更想在自然环境中安静读一段经文。",
+    en: "I’d rather quietly read a passage in nature than in a closed classroom." },
+  { id: "s1", path: "sensate",
+    zh: "优美的音乐、艺术或仪式感，常能立刻把我的心带回神面前。",
+    en: "Beautiful music, art, or a sense of liturgy often brings my heart back to God right away." },
+  { id: "s2", path: "sensate",
+    zh: "圣经里关于圣殿、香气、灯台、号角、白衣等感官细节会抓住我。",
+    en: "Sensory details in Scripture — temple, fragrance, lampstands, trumpets, white robes — catch me." },
+  { id: "s3", path: "sensate",
+    zh: "听朗读或跟着诗歌读经，往往比默读更打动我。",
+    en: "Listening to Scripture or reading with a song often moves me more than silent reading." },
+  { id: "t1", path: "traditionalist",
+    zh: "固定的读经计划、教会年历或熟悉的敬拜流程，会给我安全感。",
+    en: "A fixed reading plan, church calendar, or familiar worship flow gives me a sense of security." },
+  { id: "t2", path: "traditionalist",
+    zh: "我看重「按规矩、有传承」地读圣经，而不是每天都换花样。",
+    en: "I value reading Scripture with order and heritage more than reinventing the method every day." },
+  { id: "t3", path: "traditionalist",
+    zh: "以色列的节期、律例与教会历史上的读经习惯，会让我感到扎实。",
+    en: "Israel’s feasts and laws, and historic church reading habits, feel grounding to me." },
+  { id: "a1", path: "ascetic",
+    zh: "独处、安静、减少干扰时，我最容易专注地遇见神。",
+    en: "In solitude and quiet with fewer distractions, I most easily meet God with focus." },
+  { id: "a2", path: "ascetic",
+    zh: "简单的环境（少装饰、少社交）反而更助于我读经祷告。",
+    en: "A simple setting (less décor, less social noise) helps me read and pray better." },
+  { id: "a3", path: "ascetic",
+    zh: "禁食、退修或刻意放下娱乐时，我的属灵注意力会更清晰。",
+    en: "When I fast, retreat, or set entertainment aside, my spiritual attention becomes clearer." },
+  { id: "c1", path: "activist",
+    zh: "读经时我常想：这段经文要我为公义、使命或改变做些什么。",
+    en: "While reading, I often ask what this passage calls me to do for justice, mission, or change." },
+  { id: "c2", path: "activist",
+    zh: "先知斥责不义、耶稣对抗压迫的段落，特别能点燃我。",
+    en: "Passages where prophets confront injustice or Jesus resists oppression especially fire me up." },
+  { id: "c3", path: "activist",
+    zh: "若读经长期停留在「只明白、不行动」，我会感到焦躁。",
+    en: "If reading stays at “understand only, never act” for long, I feel restless." },
+  { id: "g1", path: "caregiver",
+    zh: "服事、照顾人、陪伴软弱者时，我最能体会神的爱。",
+    en: "I taste God’s love most while serving, caring for people, and accompanying the weak." },
+  { id: "g2", path: "caregiver",
+    zh: "圣经里怜悯穷人、病人、陌生人的故事，最容易触动我。",
+    en: "Stories of mercy toward the poor, the sick, and the stranger touch me most easily." },
+  { id: "g3", path: "caregiver",
+    zh: "读完经文，我常想到某个需要关心的具体的人。",
+    en: "After reading, I often think of a specific person who needs care." },
+  { id: "e1", path: "enthusiast",
+    zh: "赞美、庆祝、热烈敬拜会让我觉得神很近、很真实。",
+    en: "Praise, celebration, and lively worship make God feel near and real to me." },
+  { id: "e2", path: "enthusiast",
+    zh: "我喜欢见证、复兴、圣灵工作这类充满活力的经文与故事。",
+    en: "I love vibrant Scriptures and stories about testimony, revival, and the Spirit’s work." },
+  { id: "e3", path: "enthusiast",
+    zh: "读经后若能自然地赞美或感恩，那天才算「读到位」。",
+    en: "A reading day feels complete when it naturally leads me to praise or gratitude." },
+  { id: "m1", path: "contemplative",
+    zh: "安静地爱神、内在相交，比吸收很多知识信息更滋养我。",
+    en: "Quietly loving God and inward communion nourish me more than absorbing lots of information." },
+  { id: "m2", path: "contemplative",
+    zh: "我愿意花时间只停留在一句经文上，反复思想。",
+    en: "I’m willing to linger on a single verse and turn it over slowly." },
+  { id: "m3", path: "contemplative",
+    zh: "静默祷告、独处爱主，对我来说是核心而不是附加项。",
+    en: "Silent prayer and loving God in solitude are core for me, not extras." },
+  { id: "i1", path: "intellectual",
+    zh: "学到关于神或圣经的新理解时，我最觉得自己在成长、靠近神。",
+    en: "When I gain a new understanding of God or Scripture, I feel I’m growing and drawing near." },
+  { id: "i2", path: "intellectual",
+    zh: "我享受理清书卷结构、时间线、论点与「这段到底在说什么」。",
+    en: "I enjoy clarifying book structure, timelines, arguments, and “what is this really saying?”" },
+  { id: "i3", path: "intellectual",
+    zh: "若长期没有新的学习与思考，我的属灵生活会觉得干涸。",
+    en: "Without fresh learning and thinking for a long stretch, my spiritual life feels dry." }
 ];
+
+function detectLang() {
+  try {
+    const saved = localStorage.getItem("bpq_lang");
+    if (saved === "zh" || saved === "en") return saved;
+  } catch (e) {}
+  const nav = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+  return nav.startsWith("zh") ? "zh" : "en";
+}
+
+let lang = detectLang();
+
+function t() { return I18N[lang]; }
+function pathL(p) { return p[lang]; }
+function qText(q) { return q[lang]; }
 
 function shuffleStable(arr) {
   return [...arr].sort((a, b) => {
@@ -203,6 +525,7 @@ const ORDER = shuffleStable(QUESTIONS);
 const answers = Object.create(null);
 let idx = 0;
 let advancing = false;
+let lastRanked = null;
 
 const el = {
   start: document.getElementById("screen-start"),
@@ -217,8 +540,49 @@ const el = {
   pBar: document.getElementById("progress-bar"),
   resultTitle: document.getElementById("result-title"),
   resultSub: document.getElementById("result-sub"),
-  rankList: document.getElementById("rank-list")
+  rankList: document.getElementById("rank-list"),
+  toast: document.getElementById("toast"),
+  langBtn: document.getElementById("btn-lang"),
+  supportWrap: document.getElementById("support-wrap"),
+  waitlistWrap: document.getElementById("waitlist-wrap"),
 };
+
+function toast(msg) {
+  el.toast.textContent = msg;
+  el.toast.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.toast.classList.remove("show"), 2200);
+}
+
+function setMeta() {
+  const i = t();
+  document.documentElement.lang = i.htmlLang;
+  document.title = i.docTitle;
+  const set = (sel, attr, val) => {
+    const n = document.querySelector(sel);
+    if (n) n.setAttribute(attr, val);
+  };
+  set('meta[name="description"]', "content", i.metaDesc);
+  set('meta[property="og:title"]', "content", i.ogTitle);
+  set('meta[property="og:description"]', "content", i.ogDesc);
+  set('meta[property="og:locale"]', "content", lang === "zh" ? "zh_CN" : "en_US");
+  set('meta[name="twitter:title"]', "content", i.ogTitle);
+  set('meta[name="twitter:description"]', "content", i.ogDesc);
+}
+
+function applyStaticI18n() {
+  const i = t();
+  el.langBtn.textContent = i.langBtn;
+  document.querySelectorAll("[data-i18n]").forEach(node => {
+    const key = node.getAttribute("data-i18n");
+    if (typeof i[key] === "string") node.textContent = i[key];
+  });
+  el.scale.setAttribute("aria-label", i.scaleAria);
+  setMeta();
+  renderMono();
+  if (!el.result.classList.contains("hidden") && lastRanked) renderResult();
+  else if (!el.quiz.classList.contains("hidden")) renderQuestion();
+}
 
 function show(screen) {
   el.start.classList.toggle("hidden", screen !== "start");
@@ -233,19 +597,20 @@ function renderQuestion() {
   const n = idx + 1;
   const total = ORDER.length;
   const pct = Math.round((n / total) * 100);
-  el.qNum.textContent = "第 " + n + " 题";
-  el.qText.textContent = q.text;
-  el.pText.textContent = n + " / " + total;
+  const i = t();
+  el.qNum.textContent = i.qNum(n);
+  el.qText.textContent = qText(q);
+  el.pText.textContent = i.progress(n, total);
   el.pPct.textContent = pct + "%";
   el.pBar.style.width = pct + "%";
   el.prev.style.visibility = idx === 0 ? "hidden" : "visible";
 
   el.scale.innerHTML = "";
-  SCALE.forEach(opt => {
+  SCALE[lang].forEach(opt => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "opt" + (answers[q.id] === opt.v ? " selected" : "");
-    btn.innerHTML = '<span class="dot">' + opt.v + '</span><span class="lab">' + opt.label + '</span>';
+    btn.innerHTML = '<span class="dot">' + opt.v + '</span><span class="lab">' + opt.label + "</span>";
     btn.addEventListener("click", () => choose(opt.v, btn));
     el.scale.appendChild(btn);
   });
@@ -281,32 +646,184 @@ function scoreAll() {
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
 }
 
+function buildSummary(ranked) {
+  const i = t();
+  const lines = [i.summaryHead];
+  ranked.slice(0, 3).forEach((r, idx) => {
+    const p = pathL(PATHS[r.id]);
+    lines.push((idx + 1) + ". " + p.name + "（" + r.score + "/15 · " + r.pct + "%）— " + p.blurb);
+  });
+  lines.push(SHARE_URL);
+  return lines.join("\n");
+}
+
+function updateShareLinks(ranked) {
+  const top = ranked[0];
+  const p = pathL(PATHS[top.id]);
+  const text = t().shareText(p.name, top.pct);
+  const enc = encodeURIComponent;
+  document.getElementById("share-x").href =
+    "https://twitter.com/intent/tweet?text=" + enc(text) + "&url=" + enc(SHARE_URL);
+  document.getElementById("share-fb").href =
+    "https://www.facebook.com/sharer/sharer.php?u=" + enc(SHARE_URL) + "&quote=" + enc(text);
+  document.getElementById("share-wa").href =
+    "https://wa.me/?text=" + enc(text + " " + SHARE_URL);
+  document.getElementById("share-tg").href =
+    "https://t.me/share/url?url=" + enc(SHARE_URL) + "&text=" + enc(text);
+}
+
+function renderMono() {
+  const i = t();
+  el.supportWrap.innerHTML = "";
+  if (CONFIG.SUPPORT_URL && CONFIG.SUPPORT_URL.trim()) {
+    const a = document.createElement("a");
+    a.className = "btn btn-ghost";
+    a.href = CONFIG.SUPPORT_URL;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = i.supportBtn;
+    el.supportWrap.appendChild(a);
+  } else {
+    const note = document.createElement("p");
+    note.className = "mono-note";
+    note.style.margin = "0";
+    note.textContent = i.supportSoon;
+    el.supportWrap.appendChild(note);
+  }
+
+  el.waitlistWrap.innerHTML = "";
+  const h = document.createElement("h3");
+  h.style.cssText = "margin:0 0 6px;font-size:1rem";
+  h.textContent = i.waitlistTitle;
+  el.waitlistWrap.appendChild(h);
+  const p = document.createElement("p");
+  p.className = "muted";
+  p.style.margin = "0 0 10px";
+  p.textContent = i.waitlistBody;
+  el.waitlistWrap.appendChild(p);
+
+  if (CONFIG.CONTACT_EMAIL && CONFIG.CONTACT_EMAIL.trim()) {
+    const topName = lastRanked ? pathL(PATHS[lastRanked[0].id]).name : "";
+    const subj = encodeURIComponent(lang === "zh"
+      ? "读经陪伴候补 · " + (topName || "Bible Pathway Quiz")
+      : "Reading companion waitlist · " + (topName || "Bible Pathway Quiz"));
+    const body = encodeURIComponent(lang === "zh"
+      ? "你好，我对「个人读经陪伴」感兴趣。\n我的主路径：" + (topName || "（尚未测评）") + "\n\n来自：" + CONFIG.SITE_URL
+      : "Hi, I'm interested in the personal reading companion.\nMy top pathway: " + (topName || "(not yet taken)") + "\n\nFrom: " + CONFIG.SITE_URL);
+    const a = document.createElement("a");
+    a.className = "btn btn-primary";
+    a.href = "mailto:" + CONFIG.CONTACT_EMAIL + "?subject=" + subj + "&body=" + body;
+    a.textContent = i.waitlistBtn;
+    el.waitlistWrap.appendChild(a);
+  } else {
+    const note = document.createElement("p");
+    note.className = "mono-note";
+    note.style.margin = "0";
+    note.textContent = i.waitlistSoon;
+    el.waitlistWrap.appendChild(note);
+  }
+}
+
 function renderResult() {
   const ranked = scoreAll();
+  lastRanked = ranked;
   const top = ranked[0], second = ranked[1], third = ranked[2];
-  const p1 = PATHS[top.id], p2 = PATHS[second.id], p3 = PATHS[third.id];
-  el.resultTitle.textContent = "主路径：" + p1.name;
-  el.resultSub.textContent = p1.blurb + " 其次：" + p2.name + "、" + p3.name + "。";
-  el.rankList.innerHTML = ranked.map((r, i) => {
-    const p = PATHS[r.id];
-    const tips = i < 3
-      ? '<ul class="tips">' + p.tips.map(t => "<li>" + t + "</li>").join("") + "</ul>"
+  const p1 = pathL(PATHS[top.id]), p2 = pathL(PATHS[second.id]), p3 = pathL(PATHS[third.id]);
+  const i = t();
+  el.resultTitle.textContent = i.resultTitle(p1.name);
+  el.resultSub.textContent = i.resultSub(p1.blurb, p2.name, p3.name);
+  el.rankList.innerHTML = ranked.map((r, ri) => {
+    const p = pathL(PATHS[r.id]);
+    const enName = PATHS[r.id].en.name;
+    const tips = ri < 3
+      ? '<ul class="tips">' + p.tips.map(x => "<li>" + x + "</li>").join("") + "</ul>"
       : '<p class="muted" style="margin:6px 0 0">' + p.blurb + "</p>";
-    return '<div class="rank-item ' + (i === 0 ? "top" : "") + '">' +
-      '<div class="rank-head"><h3>' + (i + 1) + ". " + p.name +
-      ' <span class="muted" style="font-weight:500;font-size:.82rem">· ' + p.en + "</span></h3>" +
+    return '<div class="rank-item ' + (ri === 0 ? "top" : "") + '">' +
+      '<div class="rank-head"><h3>' + (ri + 1) + ". " + p.name +
+      (lang === "zh" ? ' <span class="muted" style="font-weight:500;font-size:.82rem">· ' + enName + "</span>" : "") +
+      "</h3>" +
       '<span class="pct">' + r.score + "/15 · " + r.pct + "%</span></div>" +
       '<div class="meter"><i style="width:' + r.pct + '%"></i></div>' +
-      (i < 3 ? '<p style="margin:0;font-size:.93rem">' + p.blurb + "</p>" + tips : tips) +
+      (ri < 3 ? '<p style="margin:0;font-size:.93rem">' + p.blurb + "</p>" + tips : tips) +
       "</div>";
   }).join("");
-  window.__lastSummary = [
-    "圣经亲近方式测评结果",
-    "1. " + p1.name + "（" + top.score + "/15）— " + p1.blurb,
-    "2. " + p2.name + "（" + second.score + "/15）",
-    "3. " + p3.name + "（" + third.score + "/15）"
-  ].join("\n");
+  window.__lastSummary = buildSummary(ranked);
+  updateShareLinks(ranked);
+  renderMono();
 }
+
+async function drawShareCard() {
+  if (!lastRanked) return null;
+  const canvas = document.getElementById("share-card");
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width, h = canvas.height;
+  const top = lastRanked[0];
+  const p = pathL(PATHS[top.id]);
+  const i = t();
+
+  const g = ctx.createLinearGradient(0, 0, w, h);
+  g.addColorStop(0, "#2c4a6e");
+  g.addColorStop(0.55, "#3f6a8f");
+  g.addColorStop(1, "#8a6b3a");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.fillStyle = "rgba(255,255,255,0.12)";
+  roundRect(ctx, 48, 80, w - 96, h - 200, 28);
+  ctx.fill();
+
+  ctx.fillStyle = "#fff";
+  ctx.font = "600 28px system-ui, sans-serif";
+  ctx.fillText(lang === "zh" ? "圣经亲近方式测评" : "Bible Pathway Quiz", 72, 150);
+
+  ctx.font = "700 52px system-ui, sans-serif";
+  wrapText(ctx, p.name, 72, 260, w - 144, 62);
+
+  ctx.font = "600 36px system-ui, sans-serif";
+  ctx.fillText(top.score + "/15  ·  " + top.pct + "%", 72, 420);
+
+  ctx.font = "400 26px system-ui, sans-serif";
+  ctx.globalAlpha = 0.92;
+  wrapText(ctx, p.blurb, 72, 490, w - 144, 36);
+  ctx.globalAlpha = 1;
+
+  ctx.font = "500 22px system-ui, sans-serif";
+  ctx.fillStyle = "rgba(255,255,255,0.85)";
+  ctx.fillText(CONFIG.SITE_URL.replace("https://", ""), 72, h - 80);
+
+  return canvas;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const chars = text.split("");
+  let line = "";
+  let yy = y;
+  for (let n = 0; n < chars.length; n++) {
+    const test = line + chars[n];
+    if (ctx.measureText(test).width > maxWidth && line) {
+      ctx.fillText(line, x, yy);
+      line = chars[n];
+      yy += lineHeight;
+    } else line = test;
+  }
+  if (line) ctx.fillText(line, x, yy);
+}
+
+el.langBtn.addEventListener("click", () => {
+  lang = lang === "zh" ? "en" : "zh";
+  try { localStorage.setItem("bpq_lang", lang); } catch (e) {}
+  applyStaticI18n();
+});
 
 document.getElementById("btn-start").addEventListener("click", () => {
   idx = 0; show("quiz"); renderQuestion();
@@ -316,17 +833,69 @@ el.prev.addEventListener("click", () => {
 });
 document.getElementById("btn-restart").addEventListener("click", () => {
   Object.keys(answers).forEach(k => delete answers[k]);
+  lastRanked = null;
   idx = 0; show("start");
 });
 document.getElementById("btn-copy").addEventListener("click", async () => {
   const text = window.__lastSummary || "";
   try {
     await navigator.clipboard.writeText(text);
-    alert("已复制");
+    toast(t().copied);
   } catch (e) {
-    prompt("请手动复制：", text);
+    prompt(t().copyFail, text);
   }
 });
+document.getElementById("btn-native-share").addEventListener("click", async () => {
+  if (!lastRanked) return;
+  const top = lastRanked[0];
+  const p = pathL(PATHS[top.id]);
+  const text = t().shareText(p.name, top.pct);
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: t().docTitle, text, url: SHARE_URL });
+    } catch (e) { /* cancelled */ }
+  } else {
+    toast(t().shareFail);
+  }
+});
+document.getElementById("btn-card").addEventListener("click", async () => {
+  const canvas = await drawShareCard();
+  if (!canvas) return;
+  canvas.toBlob(async (blob) => {
+    if (!blob) return;
+    const file = new File([blob], "bible-pathway.png", { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: t().docTitle, text: t().shareText(pathL(PATHS[lastRanked[0].id]).name, lastRanked[0].pct), url: SHARE_URL });
+        return;
+      } catch (e) { /* fall through */ }
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "bible-pathway.png";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast(t().cardReady);
+  }, "image/png");
+});
+
+applyStaticI18n();
+
+/* Optional analytics hooks — enable in CONFIG and uncomment:
+if (CONFIG.PLAUSIBLE_DOMAIN) {
+  const s = document.createElement("script");
+  s.defer = true; s.dataset.domain = CONFIG.PLAUSIBLE_DOMAIN;
+  s.src = "https://plausible.io/js/script.js";
+  document.head.appendChild(s);
+}
+if (CONFIG.GOATCOUNTER_CODE) {
+  window.goatcounter = { path: location.pathname };
+  const s = document.createElement("script");
+  s.async = true; s.dataset.goatcounter = "https://" + CONFIG.GOATCOUNTER_CODE + ".goatcounter.com/count";
+  s.src = "//gc.zgo.at/count.js";
+  document.head.appendChild(s);
+}
+*/
 </script>
 </body>
 </html>
